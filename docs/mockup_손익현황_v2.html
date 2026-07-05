@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>손익현황 — AX Sejong Command</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0E17; --panel:#121828; --panel-2:#0E1422; --border:#212B40;
+    --text:#EAEDF5; --text-dim:#7C879E;
+    --gold:#E8B84B; --gold-soft:rgba(232,184,75,0.14);
+    --steel:#4C5C7C; --steel-dim:#2C3650; --steel-pale:#1C2540;
+    --red:#E2574C; --red-soft:rgba(226,87,76,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--text); font-family:'IBM Plex Sans KR', sans-serif; padding:32px 28px 60px;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:1180px; margin:0 auto;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:.18em; color:var(--gold); text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:8px;}
+  .eyebrow::before{content:""; width:6px; height:6px; background:var(--gold); border-radius:50%; display:inline-block;}
+  h1{font-size:26px; font-weight:600; letter-spacing:-0.01em; margin-bottom:6px;}
+  .sub{color:var(--text-dim); font-size:13.5px; margin-bottom:30px;}
+  .panel{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:26px 28px;}
+  .panel + .panel{margin-top:18px;}
+  .panel-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:18px; flex-wrap:wrap; gap:8px;}
+  .panel-title{font-size:15px; font-weight:600;}
+  .panel-note{font-size:11.5px; color:var(--text-dim); font-family:'IBM Plex Mono', monospace;}
+
+  /* HERO */
+  .hero-top{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px; flex-wrap:wrap; gap:14px;}
+  .hero-claim{font-size:19px; font-weight:600; line-height:1.5;}
+  .hero-claim b{color:var(--gold);}
+  .hero-badge{font-family:'IBM Plex Mono', monospace; background:var(--gold-soft); border:1px solid rgba(232,184,75,.35); color:var(--gold); padding:8px 16px; border-radius:10px; font-size:13px; font-weight:600; white-space:nowrap;}
+  .bars{display:flex; flex-direction:column; gap:16px; margin-top:6px;}
+  .bar-row{display:grid; grid-template-columns:96px 1fr 130px; align-items:center; gap:14px;}
+  .bar-label{font-size:13px; color:var(--text-dim);}
+  .bar-label.lead{color:var(--text); font-weight:500;}
+  .bar-track{position:relative; height:26px; background:var(--panel-2); border-radius:6px; overflow:hidden;}
+  .bar-fill{position:absolute; top:0; left:0; height:100%; border-radius:6px; width:0%; transition:width 1s cubic-bezier(.16,1,.3,1);}
+  .bar-fill.steel{background:linear-gradient(90deg,var(--steel-dim),var(--steel));}
+  .bar-fill.gold{background:linear-gradient(90deg,#b9893a,var(--gold));}
+  .baseline{position:absolute; top:-4px; bottom:-4px; width:2px; background:repeating-linear-gradient(to bottom, var(--text-dim) 0 4px, transparent 4px 8px); z-index:2;}
+  .bar-val-wrap{text-align:right;}
+  .bar-val{font-family:'IBM Plex Mono', monospace; font-size:13.5px; font-weight:500;}
+  .bar-val.gold-txt{color:var(--gold);}
+  .bar-amt{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-dim); margin-top:1px;}
+  .hero-footnote{margin-top:18px; font-size:12px; color:var(--text-dim); display:flex; gap:6px; align-items:flex-start;}
+
+  .year-cards{display:grid; grid-template-columns:repeat(auto-fit, minmax(165px,1fr)); gap:12px;}
+  .yc{background:var(--panel-2); border:1px solid var(--border); border-radius:10px; padding:14px 14px 12px;}
+  .yc-year{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-dim); margin-bottom:4px;}
+  .yc-eff{font-family:'IBM Plex Mono', monospace; font-size:22px; font-weight:600; color:var(--gold); margin-bottom:10px;}
+  .yc-eff.small{font-size:14px;}
+  .yc-rows{display:flex; flex-direction:column; gap:5px; position:relative;}
+  .yc-row{display:flex; align-items:center; gap:6px;}
+  .yc-tag{font-size:9.5px; color:var(--text-dim); width:38px; flex-shrink:0;}
+  .yc-track{position:relative; flex:1; height:9px; background:var(--panel); border-radius:3px; overflow:visible;}
+  .yc-fill{position:absolute; top:0; left:0; height:100%; border-radius:3px;}
+  .yc-fill.steel{background:var(--steel);}
+  .yc-fill.gold{background:var(--gold);}
+  .yc-pct{font-family:'IBM Plex Mono', monospace; font-size:9.5px; width:34px; text-align:right; flex-shrink:0;}
+  .yc-base{position:absolute; top:-2px; bottom:-2px; width:1.5px; background:repeating-linear-gradient(to bottom, var(--text) 0 3px, transparent 3px 6px); z-index:2;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px;}
+  @media(max-width:980px){.grid2{grid-template-columns:1fr;}}
+
+  .legend{display:flex; gap:16px; flex-wrap:wrap;}
+  .legend-item{display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-dim);}
+  .legend-dot{width:9px; height:9px; border-radius:50%;}
+  .legend-dot.sq{border-radius:3px;}
+
+  .toggle-row{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
+  .toggle{font-family:'IBM Plex Mono', monospace; font-size:11.5px; border:1px solid var(--border); background:var(--panel-2); color:var(--text-dim); padding:6px 12px; border-radius:20px; cursor:pointer; transition:.2s;}
+  .toggle.active{border-color:var(--gold); color:var(--gold); background:var(--gold-soft);}
+
+  .mini-grid{display:grid; grid-template-columns:1fr; gap:14px;}
+  .mini-box{background:var(--panel-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px 8px;}
+  .mini-title{font-size:12.5px; font-weight:600; color:var(--text-dim); margin-bottom:6px;}
+
+  svg text{font-family:'IBM Plex Mono', monospace;}
+  .axis-line{stroke:var(--border); stroke-width:1;}
+  .grid-line{stroke:var(--border); stroke-width:1; stroke-dasharray:2 4;}
+  .axis-text{fill:var(--text-dim); font-size:10px;}
+
+  .hl-banner{background:linear-gradient(135deg, rgba(226,87,76,.10), rgba(232,184,75,.08)); border:1px solid rgba(232,184,75,.3);}
+  .hl-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:22px; align-items:center;}
+  @media(max-width:900px){.hl-grid{grid-template-columns:1fr;}}
+  .hl-num{font-family:'IBM Plex Mono', monospace; font-size:30px; font-weight:600;}
+  .hl-num.red{color:var(--red);} .hl-num.gold{color:var(--gold);}
+  .hl-cap{font-size:12px; color:var(--text-dim); margin-top:6px;}
+  .hl-text{font-size:14.5px; line-height:1.65;}
+  .hl-text b{color:var(--gold);}
+  .arrow-mid{display:flex; align-items:center; justify-content:center; font-size:22px; color:var(--text-dim);}
+
+  .foot{margin-top:22px; padding:16px 20px; border-radius:10px; background:var(--panel-2); border:1px solid var(--border); font-size:12px; color:var(--text-dim); line-height:1.8;}
+  .foot b{color:var(--text);}
+
+  .hist-table{width:100%; border-collapse:collapse; font-size:12.5px; min-width:980px;}
+  .hist-table th{text-align:center; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--text-dim); font-weight:500; padding:8px 10px; border-bottom:1px solid var(--border);}
+  .hist-table td{padding:8px 10px; font-family:'IBM Plex Mono', monospace; text-align:right;}
+  .hist-table tr.grp-bottom td{border-bottom:1px solid var(--border);}
+  .hist-table tr.grp-bottom td{padding-bottom:11px;}
+  .hist-table tr.grp-top td{padding-top:11px;}
+  .hist-table tr:last-child td{border-bottom:none;}
+  .hist-table td.yr{text-align:left; vertical-align:middle; font-family:'IBM Plex Sans KR', sans-serif; color:var(--text); font-weight:600; border-right:1px solid var(--border);}
+  .hist-table td.tag{text-align:left; color:var(--text-dim); font-family:'IBM Plex Sans KR', sans-serif; font-size:11.5px;}
+  .hist-table td.tag.gold{color:var(--gold); font-weight:600;}
+  .hist-table th.grp, .hist-table td.grp{border-left:1px solid var(--border);}
+  .hist-table tr.now td.yr{color:var(--gold);}
+  .hist-table .pct{color:var(--text-dim); font-size:10.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">AX SEJONG COMMAND · 손익현황</div>
+  <h1>세종개발본부, 회사 손익에 어떻게 기여하는가</h1>
+  <div class="sub">전사 / 수행조직 / 세종개발본부 비교 · 2026년 예상 기준</div>
+
+  <!-- HERO -->
+  <div class="panel">
+    <div class="hero-top">
+      <div class="hero-claim">연도별 수행인력 효율배수 — 인력 비중 대비 매출·매출원가·매출이익 비중 우위</div>
+    </div>
+    <div class="year-cards" id="yearCards"></div>
+    <div class="hero-footnote">
+      <span>※</span>
+      <span>막대는 <b style="color:var(--text)">수행조직(돈 버는 조직) 전체 대비 세종 비중(%)</b>. 점선 = 그해 인력 비중 기준선. 효율배수 = 매출이익비중 ÷ 인력비중. 2021년은 수행조직 자체 매출이익이 작아 배수가 크게 나타남.</span>
+    </div>
+  </div>
+
+  <!-- 연도별 금액 추이 -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">연도별 수행조직대비 매출·매출원가·매출이익</div>
+      <div class="panel-note">2021–2026 · 수행조직 vs 세종</div>
+    </div>
+    <div class="mini-grid">
+      <div class="mini-box"><div class="mini-title">인력</div><div id="chartLabor"></div></div>
+      <div class="mini-box"><div class="mini-title">매출</div><div id="chartRevenue"></div></div>
+      <div class="mini-box"><div class="mini-title">매출원가</div><div id="chartCost"></div></div>
+      <div class="mini-box"><div class="mini-title">매출이익</div><div id="chartProfit"></div></div>
+    </div>
+    <div class="legend" style="margin-top:10px;">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--steel)"></div>수행조직 합계</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>세종개발본부 (괄호 = 수행조직 대비 비중)</div>
+      <div class="legend-item">⋯ 점선 = 인력비중만큼 했다면의 위치</div>
+      <div class="legend-item"><span style="color:var(--red)">▲</span> 인력비중 기준선보다 더한 금액(%p) <span style="color:#6E9CE8">▼</span> 못한 경우</div>
+    </div>
+  </div>
+
+  <!-- 2025 하이라이트 -->
+  <div class="panel hl-banner">
+    <div class="panel-head">
+      <div class="panel-title">2025년 — 수행조직이 적자였던 해</div>
+      <div class="panel-note">매출이익 기준 · 억원</div>
+    </div>
+    <div class="hl-grid">
+      <div><div class="hl-num red">−8.5억</div><div class="hl-cap">수행조직 전체 매출이익 (세종 포함)</div></div>
+      <div class="arrow-mid">＋</div>
+      <div><div class="hl-num gold">+7.5억</div><div class="hl-cap">세종개발본부 단독 매출이익</div></div>
+    </div>
+    <div class="hl-text" style="margin-top:18px;">
+      회사가 어려웠던 2025년, 수행조직 전체는 <b>적자(매출이익률 −2.97%)</b>였지만 세종개발본부는 홀로 <b>매출이익률 16.74%</b>를 지켜냈습니다.
+      세종이 없었다면 수행조직의 적자 규모는 지금보다 훨씬 컸을 것입니다.
+    </div>
+  </div>
+
+  <!-- 연도별 사업 현황 요약 (참고용, 추후 Notion 연동) -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">연도별 사업 현황 요약</div>
+      <div class="panel-note">2021–2026 · 단위 명/억원 · 참고용 (추후 노션 DB 연동)</div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="hist-table">
+        <thead>
+          <tr>
+            <th>연도</th><th>구분</th>
+            <th>인력</th><th>매출</th><th>매출원가</th><th>매출이익</th><th>매출이익률</th>
+            <th class="grp">수행인력대비 매출</th><th>수행인력대비 매출원가</th><th>수행인력대비 매출이익</th>
+          </tr>
+        </thead>
+        <tbody id="histTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const years = [2021,2022,2023,2024,2025,2026];
+
+// ---- 매출이익 금액 (억원) : 전사 / 수행조직 / 세종 + 세종비중(수행조직대비,%) ----
+const profitSi  = [8.04, 38.90, 37.18, 30.82, -8.45, 41.96];
+const profitSj  = [5.45, 10.48, 8.37, 10.05, 7.53, 8.19];
+const profitRatio = [67.8, 26.9, 22.5, 32.6, null, 19.5]; // null = 수행조직 적자라 비율 무의미
+
+// ---- 연도별 금액 추이 데이터 ----
+const metricData = {
+  labor:   { unit:'명',  yMax:190, yMin:0,   si:[99,140,161,168,158,172],            sj:[9,17,22,18,17,18],            ratio:[9.1,12.1,13.7,10.7,10.8,10.5], prevBase:null },
+  revenue: { unit:'억원', yMax:400, yMin:0,   si:[252.9,292.3,293.9,304.8,284.8,354.6], sj:[27.2,43.0,58.3,48.7,45.0,50.6], ratio:[10.8,14.7,19.8,16.0,15.8,14.3], prevBase:11.1 },
+  cost:    { unit:'억원', yMax:350, yMin:0,   si:[244.9,253.4,256.7,274.0,293.3,312.7], sj:[21.7,32.5,49.9,38.6,37.5,42.4], ratio:[8.9,12.8,19.4,14.1,12.8,13.6], prevBase:null },
+  profit:  { unit:'억원', yMax:45, yMin:-15, si:profitSi,                            sj:profitSj,                       ratio:profitRatio, prevBase:null }
+};
+
+// ---- hero bar 애니메이션 ----
+// ====== 1) 연도별 효율 카드 ======
+function renderYearCards(){
+  const laborR = metricData.labor.ratio;
+  const revR = metricData.revenue.ratio;
+  const costR = metricData.cost.ratio;
+  const profR = metricData.profit.ratio;
+
+  let html = '';
+  years.forEach((yr,i)=>{
+    const eff = profR[i]===null ? null : (profR[i]/laborR[i]);
+    const effTxt = eff===null ? '흑자전환 기여' : eff.toFixed(2)+'x';
+    const effClass = eff===null ? 'yc-eff small' : 'yc-eff';
+    const baseW = laborR[i]; // 인력비중 기준선 위치(%)
+    const maxScale = Math.max(laborR[i], revR[i], costR[i], (profR[i]||0)) * 1.18;
+
+    const rows = [
+      {tag:'인력', val:laborR[i], cls:'steel'},
+      {tag:'매출', val:revR[i], cls:'steel'},
+      {tag:'매출원가', val:costR[i], cls:'steel'},
+    ];
+    if(profR[i]!==null) rows.push({tag:'매출이익', val:profR[i], cls:'gold'});
+
+    let rowsHtml = rows.map(r=>{
+      const w = (r.val/maxScale*100).toFixed(1);
+      const baseLeft = (baseW/maxScale*100).toFixed(1);
+      return `<div class="yc-row">
+        <div class="yc-tag">${r.tag}</div>
+        <div class="yc-track"><div class="yc-base" style="left:${baseLeft}%"></div><div class="yc-fill ${r.cls}" style="width:${w}%"></div></div>
+        <div class="yc-pct" style="color:${r.cls==='gold'?'var(--gold)':'var(--text-dim)'}">${r.val.toFixed(1)}%</div>
+      </div>`;
+    }).join('');
+
+    if(profR[i]===null){
+      rowsHtml += `<div style="font-size:9.5px; color:var(--red); margin-top:2px;">수행조직 적자 속 세종 흑자 (하단 참고)</div>`;
+    }
+
+    html += `<div class="yc">
+      <div class="yc-year">${yr}년</div>
+      <div class="${effClass}">${effTxt}</div>
+      <div class="yc-rows">${rowsHtml}</div>
+    </div>`;
+  });
+
+  document.getElementById('yearCards').innerHTML = html;
+}
+renderYearCards();
+
+// ====== 2) 연도별 금액 추이 — 미니 막대차트 4개 ======
+function renderMiniChart(containerId, metric){
+  const d = metricData[metric];
+  const W=900,H=190,padL=44,padR=10,padT=26,padB=24;
+  const innerW=W-padL-padR, innerH=H-padT-padB;
+  const y = v => padT + innerH*(1-(v-d.yMin)/(d.yMax-d.yMin));
+  const zeroY = y(0);
+  const groupW = innerW/years.length;
+  const barW = groupW*0.16;
+  const gap = groupW*0.05;
+  const unitTxt = d.unit==='명' ? '명' : '억';
+  const dec = d.unit==='명' ? 0 : 1;
+
+  const steps=3; let grid='';
+  for(let s=0;s<=steps;s++){
+    const v = d.yMin + (d.yMax-d.yMin)*s/steps;
+    grid += `<line class="grid-line" x1="${padL}" x2="${W-padR}" y1="${y(v)}" y2="${y(v)}"/>`;
+    grid += `<text class="axis-text" x="${padL-6}" y="${y(v)+3}" text-anchor="end" font-size="9">${Math.round(v)}</text>`;
+  }
+
+  let bars='', xaxis='';
+  const laborRatio = metricData.labor.ratio; // 기준선 계산용
+  years.forEach((yr,i)=>{
+    const gx = padL + groupW*i + groupW*0.12;
+    const siV = d.si[i], sjV = d.sj[i], ratio = d.ratio[i];
+
+    // 수행조직 바
+    const siColor = siV>=0 ? '#4C5C7C' : '#E2574C';
+    const siY1 = Math.min(y(siV), zeroY), siH = Math.abs(y(siV)-zeroY);
+    bars += `<rect x="${gx}" y="${siY1}" width="${barW}" height="${Math.max(siH,1)}" rx="2" fill="${siColor}"/>`;
+    const siLabelY = siV>=0 ? siY1-6 : siY1+siH+12;
+    bars += `<text x="${gx+barW/2}" y="${siLabelY}" text-anchor="middle" font-size="9" fill="${siV>=0?'#9aa6c0':'#E2574C'}">${siV.toFixed(dec)}${unitTxt}</text>`;
+
+    // 세종 바
+    const sjX = gx+barW+gap;
+    const sjY1 = Math.min(y(sjV), zeroY), sjH = Math.abs(y(sjV)-zeroY);
+    bars += `<rect x="${sjX}" y="${sjY1}" width="${barW}" height="${Math.max(sjH,1)}" rx="2" fill="#E8B84B"/>`;
+
+    // 인력비중 기준선 + 초과분(인력비중만큼 했다면보다 더한 금액/%)
+    let refVal = null;
+    if(metric!=='labor' && siV>0){
+      refVal = siV * (laborRatio[i]/100);
+      const refY = y(refVal);
+      bars += `<line x1="${sjX-2}" x2="${sjX+barW+2}" y1="${refY}" y2="${refY}" stroke="#EAEDF5" stroke-width="1.3" stroke-dasharray="2.5 2"/>`;
+    }
+
+    // 세종 라벨 (2줄: 금액 / 비율)
+    const ratioTxt = ratio===null ? '흑자' : ratio+'%';
+    const line1Y = sjV>=0 ? sjY1-17 : sjY1+sjH+14;
+    const line2Y = line1Y + 10;
+    bars += `<text x="${sjX+barW/2}" y="${line1Y}" text-anchor="middle" font-size="9.5" font-weight="600" fill="#E8B84B">${sjV.toFixed(dec)}${unitTxt}</text>`;
+    bars += `<text x="${sjX+barW/2}" y="${line2Y}" text-anchor="middle" font-size="8.3" fill="#E8B84B">(${ratioTxt})</text>`;
+
+    // 인력비중 기준선 초과분 삼각표 + 금액(%p) — 2줄
+    if(refVal!==null){
+      const diff = sjV - refVal;
+      const ppDiff = ratio - laborRatio[i]; // %p = 매출비중 - 인력비중
+      const up = diff>=0;
+      const triColor = up ? '#E2574C' : '#6E9CE8';
+      const tri = up ? '▲' : '▼';
+      const exX = sjX+barW+10;
+      bars += `<text x="${exX}" y="${line1Y}" font-size="9.3" fill="${triColor}">${tri} ${Math.abs(diff).toFixed(dec)}${unitTxt}</text>`;
+      bars += `<text x="${exX}" y="${line2Y}" font-size="8.3" fill="${triColor}">(${Math.abs(ppDiff).toFixed(1)}%p)</text>`;
+    } else if(siV<0){
+      // 수행조직 자체가 적자라 기준선/초과분 산정 불가 → 별도 표시
+      const exX = sjX+barW+10;
+      bars += `<text x="${exX}" y="${line1Y}" font-size="9" fill="#E2574C">수행조직 적자</text>`;
+      bars += `<text x="${exX}" y="${line2Y}" font-size="9" font-weight="600" fill="#E8B84B">속 세종 흑자</text>`;
+    }
+
+    xaxis += `<text class="axis-text" x="${gx+barW+gap/2}" y="${H-7}" text-anchor="middle" font-size="10">${yr}</text>`;
+  });
+
+  let zeroLine = d.yMin<0 ? `<line class="axis-line" x1="${padL}" x2="${W-padR}" y1="${zeroY}" y2="${zeroY}"/>` : '';
+
+  document.getElementById(containerId).innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" width="100%">
+      ${grid}
+      ${zeroLine}
+      ${bars}
+      ${xaxis}
+    </svg>`;
+}
+
+renderMiniChart('chartLabor','labor');
+renderMiniChart('chartRevenue','revenue');
+renderMiniChart('chartCost','cost');
+renderMiniChart('chartProfit','profit');
+
+// ====== 3) 연도별 사업 현황 요약 표 — 수행조직 vs 세종 vs 수행인력대비 ======
+function getExcess(metric, yrNum){
+  const idx = years.indexOf(yrNum);
+  if(idx===-1) return null;
+  const d = metricData[metric];
+  const lr = metricData.labor.ratio[idx];
+  const si = d.si[idx];
+  if(si<=0) return null;
+  const refVal = si*lr/100;
+  const diff = d.sj[idx]-refVal;
+  const ppDiff = d.ratio[idx] - lr; // %p = 매출(등)비중 - 인력비중
+  return {diff,ppDiff};
+}
+function excessCell(metric, yrNum){
+  const idx = years.indexOf(yrNum);
+  const d = metricData[metric];
+  if(idx!==-1 && d.si[idx]<0){
+    return `<span style="color:var(--gold); font-weight:600;">흑자전환 기여</span>`;
+  }
+  const ex = getExcess(metric, yrNum);
+  if(ex===null) return '<span style="color:var(--text-dim)">—</span>';
+  const up = ex.diff>=0;
+  const color = up ? 'var(--red)' : '#6E9CE8';
+  const tri = up ? '▲' : '▼';
+  return `<span style="color:${color}">${tri} ${Math.abs(ex.diff).toFixed(1)}억(${Math.abs(ex.ppDiff).toFixed(1)}%p)</span>`;
+}
+
+const yearsDesc = [...years].reverse();
+document.getElementById('histTableBody').innerHTML = yearsDesc.map(yr=>{
+  const i = years.indexOf(yr);
+  const siLabor=metricData.labor.si[i], siRev=metricData.revenue.si[i], siCost=metricData.cost.si[i], siProfit=metricData.profit.si[i];
+  const siMargin = siProfit/siRev*100;
+  const sjLabor=metricData.labor.sj[i], sjRev=metricData.revenue.sj[i], sjCost=metricData.cost.sj[i], sjProfit=metricData.profit.sj[i];
+  const sjMargin = sjProfit/sjRev*100;
+  const yrCls = yr===2026 ? 'now' : '';
+  return `
+  <tr class="grp-top ${yrCls}">
+    <td class="yr" rowspan="2">${yr}년</td>
+    <td class="tag">수행조직</td>
+    <td><div>${siLabor}명</div></td>
+    <td><div>${siRev.toFixed(1)}억</div></td>
+    <td><div>${siCost.toFixed(1)}억</div></td>
+    <td><div>${siProfit.toFixed(1)}억</div></td>
+    <td><div>${siMargin.toFixed(1)}%</div></td>
+    <td class="grp" colspan="3" style="color:var(--text-dim); text-align:center;">—</td>
+  </tr>
+  <tr class="grp-bottom ${yrCls}">
+    <td class="tag gold">세종개발본부</td>
+    <td><div>${sjLabor}명</div><div class="pct">(${metricData.labor.ratio[i]}%)</div></td>
+    <td><div>${sjRev.toFixed(1)}억</div><div class="pct">(${metricData.revenue.ratio[i]}%)</div></td>
+    <td><div>${sjCost.toFixed(1)}억</div><div class="pct">(${metricData.cost.ratio[i]}%)</div></td>
+    <td><div>${sjProfit.toFixed(1)}억</div><div class="pct">(${metricData.profit.ratio[i]===null?'흑자':metricData.profit.ratio[i]+'%'})</div></td>
+    <td><div>${sjMargin.toFixed(1)}%</div></td>
+    <td class="grp">${excessCell('revenue', yr)}</td><td>${excessCell('cost', yr)}</td><td>${excessCell('profit', yr)}</td>
+  </tr>`;
+}).join('');
+
+</script>
+</body>
+</html>

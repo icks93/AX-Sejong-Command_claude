@@ -1,0 +1,76 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e7] [cursor=pointer]: 
+        - generic [ref=e9] [cursor=pointer]: 
+        - generic [ref=e11] [cursor=pointer]: 
+        - generic [ref=e13] [cursor=pointer]: 
+        - generic [ref=e15] [cursor=pointer]: 
+        - generic [ref=e17] [cursor=pointer]: 
+        - generic [ref=e19] [cursor=pointer]: 
+        - generic [ref=e21] [cursor=pointer]: 
+        - generic [ref=e23] [cursor=pointer]: 
+        - generic [ref=e25] [cursor=pointer]: 
+        - generic [ref=e27]: 
+      - generic [ref=e30] [cursor=pointer]: 
+      - generic [ref=e33]: 익스
+    - main [ref=e34]:
+      - generic [ref=e35]:
+        - text: 
+        - generic [ref=e36]:
+          - generic [ref=e37]: 대시보드
+          - generic [ref=e38]: 세종개발본부 종합 현황
+        - button " 로딩 중..." [disabled] [ref=e40]:
+          - generic [ref=e41]: 
+          - text: 로딩 중...
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - generic [ref=e45]: —
+          - generic [ref=e46]:
+            - generic [ref=e47]:
+              - generic [ref=e48]: 수행 사업
+              - generic [ref=e49]: —
+              - generic [ref=e50]: 준비중 제외
+            - generic [ref=e51]:
+              - generic [ref=e52]: 총 매출액
+              - generic [ref=e53]: —
+              - generic [ref=e54]: 진행중 기준
+            - generic [ref=e55]:
+              - generic [ref=e56]: 팀 인원
+              - generic [ref=e57]: —
+              - generic [ref=e58]: 정직원 기준
+            - generic [ref=e59]:
+              - generic [ref=e60]: 이번주 영업
+              - generic [ref=e61]: —
+              - generic [ref=e62]: —
+            - generic [ref=e63]:
+              - generic [ref=e64]: 준비중 사업
+              - generic [ref=e65]: —
+              - generic [ref=e66]: 매출 미반영
+          - generic [ref=e67]:
+            - generic [ref=e69]:
+              - generic [ref=e71]: 수행 사업 현황
+              - generic [ref=e72] [cursor=pointer]: 더보기 →
+            - generic [ref=e80]:
+              - generic [ref=e82]: 사업별 인력 현황
+              - generic [ref=e83] [cursor=pointer]: 더보기 →
+          - generic [ref=e85]:
+            - generic [ref=e87]:
+              - generic [ref=e89]: RISK 알림
+              - generic [ref=e90]: —
+              - generic [ref=e91] [cursor=pointer]: 더보기 →
+            - generic [ref=e94]:
+              - generic [ref=e96]: 주간회의 집중 확인
+              - generic [ref=e97] [cursor=pointer]: 더보기 →
+            - generic [ref=e100]:
+              - generic [ref=e102]: 영업보고
+              - generic [ref=e103]: —
+              - generic [ref=e104] [cursor=pointer]: 더보기 →
+            - generic [ref=e107]:
+              - generic [ref=e109]: 세미나 알림
+              - generic [ref=e110] [cursor=pointer]: 더보기 →
+        - text: 
+  - generic [ref=e113]:
+    - generic [ref=e114]: 인력 상세
+    - button "✕" [ref=e115] [cursor=pointer]

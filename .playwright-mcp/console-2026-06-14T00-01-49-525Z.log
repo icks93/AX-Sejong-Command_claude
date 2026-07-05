@@ -1,0 +1,11 @@
+[     554ms] [LOG] [DEBUG] switchTab 호출됨, tabName: dashboard @ http://localhost:8001/static/main.js?v=1:449
+[     554ms] [LOG] [DEBUG] tabElement: JSHandle@node @ http://localhost:8001/static/main.js?v=1:465
+[     554ms] [LOG] [DEBUG] menuItem: JSHandle@node @ http://localhost:8001/static/main.js?v=1:466
+[     554ms] [LOG] [DEBUG] tabElement.classList: tab-content active @ http://localhost:8001/static/main.js?v=1:471
+[     554ms] [LOG] [DEBUG] menuItem.classList: menu-item active @ http://localhost:8001/static/main.js?v=1:472
+[    1038ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:8001/favicon.ico:0
+[   13717ms] [LOG] [DEBUG] switchTab 호출됨, tabName: history @ http://localhost:8001/static/main.js?v=1:449
+[   13717ms] [LOG] [DEBUG] tabElement: JSHandle@node @ http://localhost:8001/static/main.js?v=1:465
+[   13717ms] [LOG] [DEBUG] menuItem: JSHandle@node @ http://localhost:8001/static/main.js?v=1:466
+[   13718ms] [LOG] [DEBUG] tabElement.classList: tab-content active @ http://localhost:8001/static/main.js?v=1:471
+[   13718ms] [LOG] [DEBUG] menuItem.classList: menu-item active @ http://localhost:8001/static/main.js?v=1:472

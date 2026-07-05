@@ -1,0 +1,10 @@
+[     350ms] [LOG] [DEBUG] switchTab 호출됨, tabName: dashboard @ http://localhost:8001/static/main.js?v=1:449
+[     350ms] [LOG] [DEBUG] tabElement: JSHandle@node @ http://localhost:8001/static/main.js?v=1:465
+[     350ms] [LOG] [DEBUG] menuItem: JSHandle@node @ http://localhost:8001/static/main.js?v=1:466
+[     350ms] [LOG] [DEBUG] tabElement.classList: tab-content active @ http://localhost:8001/static/main.js?v=1:471
+[     350ms] [LOG] [DEBUG] menuItem.classList: menu-item active @ http://localhost:8001/static/main.js?v=1:472
+[   11259ms] [LOG] [DEBUG] switchTab 호출됨, tabName: history @ http://localhost:8001/static/main.js?v=1:449
+[   11259ms] [LOG] [DEBUG] tabElement: JSHandle@node @ http://localhost:8001/static/main.js?v=1:465
+[   11259ms] [LOG] [DEBUG] menuItem: JSHandle@node @ http://localhost:8001/static/main.js?v=1:466
+[   11260ms] [LOG] [DEBUG] tabElement.classList: tab-content active @ http://localhost:8001/static/main.js?v=1:471
+[   11260ms] [LOG] [DEBUG] menuItem.classList: menu-item active @ http://localhost:8001/static/main.js?v=1:472

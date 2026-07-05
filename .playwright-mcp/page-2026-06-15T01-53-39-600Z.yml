@@ -1,0 +1,111 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - text: AX Sejong
+          - text: Command
+        - generic [ref=e6]: 세종개발본부
+      - generic [ref=e7]:
+        - generic [ref=e8]: 현황
+        - generic [ref=e9] [cursor=pointer]:
+          - generic [ref=e10]: 
+          - generic [ref=e11]: 대시보드
+        - generic [ref=e12] [cursor=pointer]:
+          - generic [ref=e13]: 
+          - generic [ref=e14]: 세종사업현황
+        - generic [ref=e15] [cursor=pointer]:
+          - generic [ref=e16]: 
+          - generic [ref=e17]: PM 주간회의
+        - generic [ref=e18] [cursor=pointer]:
+          - generic [ref=e19]: 
+          - generic [ref=e20]: 회사 월간보고
+        - generic [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]: 
+          - generic [ref=e23]: 세종 월간분석
+        - generic [ref=e24] [cursor=pointer]:
+          - generic [ref=e25]: 
+          - generic [ref=e26]: 세종사업히스토리
+        - generic [ref=e27] [cursor=pointer]:
+          - generic [ref=e28]: 
+          - generic [ref=e29]: 조직도
+        - generic [ref=e30] [cursor=pointer]:
+          - generic [ref=e31]: 
+          - generic [ref=e32]: 영업보고
+        - generic [ref=e33] [cursor=pointer]:
+          - generic [ref=e34]: 
+          - generic [ref=e35]: RISK 알림
+        - generic [ref=e36] [cursor=pointer]:
+          - generic [ref=e37]: 
+          - generic [ref=e38]: 세미나 알림
+        - generic [ref=e39]:
+          - generic [ref=e40]: 
+          - generic [ref=e41]: 손익현황
+          - generic [ref=e42]: 예정
+      - generic [ref=e43]:
+        - generic [ref=e44]: 실행
+        - generic [ref=e45] [cursor=pointer]:
+          - generic [ref=e46]: 
+          - generic [ref=e47]: 자동화 실행
+      - generic [ref=e49]:
+        - generic [ref=e50]: 익스
+        - generic [ref=e51]: 노승익 본부장
+    - main [ref=e52]:
+      - generic [ref=e53]:
+        - text: 
+        - generic [ref=e54]:
+          - generic [ref=e55]: 대시보드
+          - generic [ref=e56]: 세종개발본부 종합 현황
+        - button " 로딩 중..." [disabled] [ref=e58]:
+          - generic [ref=e59]: 
+          - text: 로딩 중...
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - generic [ref=e63]: —
+          - generic [ref=e64]:
+            - generic [ref=e65]:
+              - generic [ref=e66]: 수행 사업
+              - generic [ref=e67]: —
+              - generic [ref=e68]: 준비중 제외
+            - generic [ref=e69]:
+              - generic [ref=e70]: 총 매출액
+              - generic [ref=e71]: —
+              - generic [ref=e72]: 진행중 기준
+            - generic [ref=e73]:
+              - generic [ref=e74]: 팀 인원
+              - generic [ref=e75]: —
+              - generic [ref=e76]: 정직원 기준
+            - generic [ref=e77]:
+              - generic [ref=e78]: 이번주 영업
+              - generic [ref=e79]: —
+              - generic [ref=e80]: —
+            - generic [ref=e81]:
+              - generic [ref=e82]: 준비중 사업
+              - generic [ref=e83]: —
+              - generic [ref=e84]: 매출 미반영
+          - generic [ref=e85]:
+            - generic [ref=e87]:
+              - generic [ref=e89]: 수행 사업 현황
+              - generic [ref=e90] [cursor=pointer]: 더보기 →
+            - generic [ref=e98]:
+              - generic [ref=e100]: 사업별 인력 현황
+              - generic [ref=e101] [cursor=pointer]: 더보기 →
+          - generic [ref=e103]:
+            - generic [ref=e105]:
+              - generic [ref=e107]: RISK 알림
+              - generic [ref=e108]: —
+              - generic [ref=e109] [cursor=pointer]: 더보기 →
+            - generic [ref=e112]:
+              - generic [ref=e114]: 주간회의 집중 확인
+              - generic [ref=e115] [cursor=pointer]: 더보기 →
+            - generic [ref=e118]:
+              - generic [ref=e120]: 영업보고
+              - generic [ref=e121]: —
+              - generic [ref=e122] [cursor=pointer]: 더보기 →
+            - generic [ref=e125]:
+              - generic [ref=e127]: 세미나 알림
+              - generic [ref=e128] [cursor=pointer]: 더보기 →
+        - text: 
+  - generic [ref=e131]:
+    - generic [ref=e132]: 인력 상세
+    - button "✕" [ref=e133] [cursor=pointer]

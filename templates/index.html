@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AX Sejong Command</title>
+    <link rel="stylesheet" href="/static/style.css?v=19">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+    <div class="shell">
+
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-title">AX Sejong<br>Command</div>
+                <div class="logo-sub">세종개발본부</div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="section-label">현황</div>
+                <div class="menu-item active" data-tab="dashboard">
+                    <i class="ti ti-home"></i>
+                    <span>대시보드</span>
+                </div>
+                <div class="menu-item" data-tab="projects">
+                    <i class="ti ti-layout-dashboard"></i>
+                    <span>세종사업현황</span>
+                </div>
+                <div class="menu-item" data-tab="weekly">
+                    <i class="ti ti-report"></i>
+                    <span>PM 주간회의</span>
+                </div>
+                <div class="menu-item" data-tab="monthly">
+                    <i class="ti ti-building"></i>
+                    <span>회사 월간보고</span>
+                </div>
+                <div class="menu-item" data-tab="sejong">
+                    <i class="ti ti-chart-bar"></i>
+                    <span>세종 월간분석</span>
+                </div>
+                <div class="menu-item" data-tab="history">
+                    <i class="ti ti-history"></i>
+                    <span>세종사업히스토리</span>
+                </div>
+
+                <div class="menu-item" data-tab="org">
+                    <i class="ti ti-sitemap"></i>
+                    <span>조직도</span>
+                </div>
+                <div class="menu-item" data-tab="sales">
+                    <i class="ti ti-briefcase"></i>
+                    <span>영업보고</span>
+                </div>
+                <div class="menu-item" data-tab="risk">
+                    <i class="ti ti-alert-circle"></i>
+                    <span>RISK 알림</span>
+                </div>
+                <div class="menu-item" data-tab="seminar">
+                    <i class="ti ti-calendar-event"></i>
+                    <span>세미나 알림</span>
+                </div>
+                <div class="menu-item" data-tab="profitloss">
+                    <i class="ti ti-chart-line"></i>
+                    <span>손익현황</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="section-label">실행</div>
+                <div class="menu-item" data-tab="automation">
+                    <i class="ti ti-player-play"></i>
+                    <span>자동화 실행</span>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">익스</div>
+                    <div class="user-name">노승익 본부장</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 메인 영역 -->
+        <main class="main">
+
+            <!-- 상단 바 -->
+            <header class="topbar">
+                <!-- 모바일 전용 햄버거 버튼 -->
+                <button class="hamburger" id="btn-hamburger" onclick="toggleSidebar()" aria-label="메뉴">
+                    <i class="ti ti-menu-2"></i>
+                </button>
+                <div class="topbar-left">
+                    <div class="topbar-title">세종사업현황</div>
+                    <div class="topbar-subtitle">2026년 수행 사업 기준</div>
+                </div>
+                <div class="topbar-right" id="topbar-right">
+                    <!-- PM 주간회의 탭용 주차 선택 드롭다운 (기본 숨김) -->
+                    <select id="week-select" class="week-select" style="display:none;">
+                        <option value="0">최신 주차</option>
+                    </select>
+                    <!-- 회사 월간보고 탭용 월 선택 드롭다운 (기본 숨김) -->
+                    <select id="month-select" class="week-select" style="display:none;">
+                        <option value="0">최신 월</option>
+                    </select>
+                    <!-- 세종 월간분석 탭용 월 선택 드롭다운 (기본 숨김) -->
+                    <select id="sejong-month-select" class="week-select" style="display:none;">
+                        <option value="0">최신 월</option>
+                    </select>
+                    <!-- Phase 5: 히스토리 탭 전용 그래프 토글 버튼 (기본 숨김) -->
+                    <button id="btn-hist-colorful" class="btn-refresh" style="display:none;">
+                        ☀️ 다크모드 OFF
+                    </button>
+                    <button id="btn-chart" class="btn-refresh" style="display:none;">
+                        📊 그래프 보기
+                    </button>
+                    <!-- PHASE DL: 다운로드 버튼 (기본 숨김, 탭별로 표시) -->
+                    <button id="btn-download" class="btn-download" style="display:none;" onclick="triggerDownload()">
+                        <i class="ti ti-download"></i>
+                        다운로드
+                    </button>
+                    <button id="btn-refresh" class="btn-refresh">
+                        <i class="ti ti-refresh"></i>
+                        새로고침
+                    </button>
+                </div>
+            </header>
+
+            <!-- 콘텐츠 -->
+            <div class="content">
+                <!-- Phase 10: 대시보드 탭 (v2) -->
+                <div id="tab-dashboard" class="tab-content active">
+
+                    <!-- 주차 칩 -->
+                    <div class="dash-week-bar">
+                        <span class="week-chip" id="dash-week-label">—</span>
+                    </div>
+
+                    <!-- KPI 5개: 수행사업/총매출/팀인원/이번주영업/준비중사업 -->
+                    <div class="dash-kpi-row">
+                        <div class="dash-kpi" data-color="blue">
+                            <div class="dash-kpi-label">수행 사업</div>
+                            <div class="dash-kpi-value" id="dash-kpi-projects">—</div>
+                            <div class="dash-kpi-sub">준비중 제외</div>
+                        </div>
+                        <div class="dash-kpi" data-color="green">
+                            <div class="dash-kpi-label">총 매출액</div>
+                            <div class="dash-kpi-value" id="dash-kpi-revenue">—</div>
+                            <div class="dash-kpi-sub" id="dash-kpi-revenue-sub">진행중 기준</div>
+                        </div>
+                        <div class="dash-kpi" data-color="amber">
+                            <div class="dash-kpi-label">팀 인원</div>
+                            <div class="dash-kpi-value" id="dash-kpi-members">—</div>
+                            <div class="dash-kpi-sub">정직원 기준</div>
+                        </div>
+                        <div class="dash-kpi" data-color="purple">
+                            <div class="dash-kpi-label">이번주 영업</div>
+                            <div class="dash-kpi-value" id="dash-kpi-sales">—</div>
+                            <div class="dash-kpi-sub" id="dash-kpi-sales-sub">—</div>
+                        </div>
+                        <div class="dash-kpi" data-color="amber">
+                            <div class="dash-kpi-label">준비중 사업</div>
+                            <div class="dash-kpi-value" id="dash-kpi-ready">—</div>
+                            <div class="dash-kpi-sub">매출 미반영</div>
+                        </div>
+                    </div>
+
+                    <!-- 상단 2컬럼: 수행사업현황 | 사업별 인력현황 -->
+                    <div class="dash-grid-2" style="margin-bottom:12px;">
+
+                        <div class="dash-card">
+                            <div class="dash-card-hd">
+                                <div class="dash-accent" style="background:#3b82f6;"></div>
+                                <span class="dash-card-title">수행 사업 현황</span>
+                                <span class="dash-card-more" onclick="switchTab('projects')">더보기 →</span>
+                            </div>
+                            <div class="dash-card-bd" id="dash-projects-list"></div>
+                            <!-- 매출 구성 도넛 + 준비중 요약 -->
+                            <div class="dash-proj-donut-section">
+                                <div class="dash-proj-donut-wrap">
+                                    <div class="dash-proj-donut-cnt">
+                                        <canvas id="dash-proj-donut" width="180" height="180"></canvas>
+                                        <div class="donut-center-label donut-center-lg" id="dash-proj-donut-center"></div>
+                                    </div>
+                                    <div class="donut-legend" id="dash-proj-legend"></div>
+                                </div>
+                                <div class="dash-proj-ready-sum" id="dash-proj-ready-sum"></div>
+                            </div>
+                        </div>
+
+                        <div class="dash-card">
+                            <div class="dash-card-hd">
+                                <div class="dash-accent" style="background:#f59e0b;"></div>
+                                <span class="dash-card-title">사업별 인력 현황</span>
+                                <span class="dash-card-more" onclick="switchTab('org')">더보기 →</span>
+                            </div>
+                            <div class="dash-card-bd" id="dash-org-content"></div>
+                        </div>
+
+                    </div>
+
+                    <!-- 하단 4섹션 (2+2 그리드): RISK/집중확인/영업/세미나 -->
+                    <div class="dash-grid-4">
+
+                        <div class="dash-card">
+                            <div class="dash-card-hd">
+                                <div class="dash-accent" style="background:#ef4444;"></div>
+                                <span class="dash-card-title">RISK 알림</span>
+                                <span class="dash-card-week" id="dash-risk-week">—</span>
+                                <span class="dash-card-more" onclick="switchTab('risk')">더보기 →</span>
+                            </div>
+                            <div class="dash-card-bd" id="dash-risk-content"></div>
+                        </div>
+
+                        <div class="dash-card">
+                            <div class="dash-card-hd">
+                                <div class="dash-accent" style="background:#3b82f6;"></div>
+                                <span class="dash-card-title">주간회의 집중 확인</span>
+                                <span class="dash-card-more" onclick="switchTab('weekly')">더보기 →</span>
+                            </div>
+                            <div class="dash-card-bd" id="dash-focus-content"></div>
+                        </div>
+
+                        <div class="dash-card">
+                            <div class="dash-card-hd">
+                                <div class="dash-accent" style="background:#8b5cf6;"></div>
+                                <span class="dash-card-title">영업보고</span>
+                                <span class="dash-card-week" id="dash-sales-week">—</span>
+                                <span class="dash-card-more" onclick="switchTab('sales')">더보기 →</span>
+                            </div>
+                            <div class="dash-card-bd" id="dash-sales-content"></div>
+                        </div>
+
+                        <div class="dash-card">
+                            <div class="dash-card-hd">
+                                <div class="dash-accent" style="background:#22c55e;"></div>
+                                <span class="dash-card-title">세미나 알림</span>
+                                <span class="dash-card-more" onclick="switchTab('seminar')">더보기 →</span>
+                            </div>
+                            <div class="dash-card-bd" id="dash-seminar-content"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 세종사업현황 탭 -->
+                <div id="tab-projects" class="tab-content" >
+
+                    <!-- KPI 박스 5개 (준비중 추가) -->
+                    <div class="kpi-grid kpi-grid-5">
+                        <div class="kpi-card kpi-blue">
+                            <div class="kpi-label">총 수행 사업</div>
+                            <div class="kpi-value" id="kpi-total">—</div>
+                            <div class="kpi-sub">준비중 제외</div>
+                        </div>
+                        <div class="kpi-card kpi-green">
+                            <div class="kpi-label">총 매출액</div>
+                            <div class="kpi-value" id="kpi-revenue">—</div>
+                            <div class="kpi-sub" id="kpi-revenue-sub">준비중 제외</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">진행중</div>
+                            <div class="kpi-value" id="kpi-active">—</div>
+                            <div class="kpi-sub">신규 포함</div>
+                        </div>
+                        <div class="kpi-card kpi-red">
+                            <div class="kpi-label">종료</div>
+                            <div class="kpi-value" id="kpi-closed">—</div>
+                            <div class="kpi-sub">5/15 완료</div>
+                        </div>
+                        <div class="kpi-card kpi-amber">
+                            <div class="kpi-label">준비중</div>
+                            <div class="kpi-value" id="kpi-ready">—</div>
+                            <div class="kpi-sub">매출 미반영</div>
+                        </div>
+                    </div>
+
+                    <!-- 매출 구성 도넛 + 준비중 사업 현황 (기본 숨김) -->
+                    <div class="projects-insight" id="projects-insight" style="display:none;">
+                        <!-- 좌: 매출 구성 도넛 차트 -->
+                        <div class="insight-section">
+                            <div class="insight-title">매출 구성</div>
+                            <div class="donut-wrap">
+                                <div class="donut-chart-container">
+                                    <canvas id="revenue-donut" width="130" height="130"></canvas>
+                                    <div class="donut-center-label" id="donut-center"></div>
+                                </div>
+                                <div class="donut-legend" id="donut-legend"></div>
+                            </div>
+                            <div class="donut-note">* 준비중 사업은 확정 후 반영</div>
+                        </div>
+                        <!-- 우: 예정 사업 현황 카드 -->
+                        <div class="insight-section">
+                            <div class="insight-title">예정 사업 현황</div>
+                            <div class="ready-cards" id="ready-cards"></div>
+                            <div class="ready-footer" id="ready-footer"></div>
+                        </div>
+                    </div>
+
+                    <!-- 사업 목록 테이블 -->
+                    <div class="table-wrap">
+                        <div class="table-header">
+                            <span class="table-title">사업 목록</span>
+                            <span class="table-count" id="project-count">—건</span>
+                        </div>
+                        <div class="table-container">
+                            <table class="projects-table">
+                                <colgroup>
+                                    <col style="width:32%">
+                                    <col style="width:17%">
+                                    <col style="width:9%">
+                                    <col style="width:12%">
+                                    <col style="width:17%">
+                                    <col style="width:13%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>사업명</th>
+                                        <th>고객사</th>
+                                        <th>PM</th>
+                                        <th>매출액</th>
+                                        <th>계약기간</th>
+                                        <th>상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="projects-tbody">
+                                    <tr>
+                                        <td colspan="6" class="loading-cell">데이터를 불러오는 중...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <!-- PM 주간회의 탭 -->
+                <div id="tab-weekly" class="tab-content">
+    
+                    <!-- KPI 박스 5개 -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-label">수행 사업</div>
+                            <div class="kpi-value" id="kpi-w-total">—</div>
+                            <div class="kpi-sub">전체</div>
+                        </div>
+                        <div class="kpi-card kpi-red">
+                            <div class="kpi-label">이슈</div>
+                            <div class="kpi-value" id="kpi-w-issue">—</div>
+                            <div class="kpi-sub">위험</div>
+                        </div>
+                        <div class="kpi-card kpi-amber">
+                            <div class="kpi-label">위험</div>
+                            <div class="kpi-value" id="kpi-w-risk">—</div>
+                            <div class="kpi-sub">주의</div>
+                        </div>
+                        <div class="kpi-card kpi-blue">
+                            <div class="kpi-label">특이사항</div>
+                            <div class="kpi-value" id="kpi-w-special">—</div>
+                            <div class="kpi-sub">이상</div>
+                        </div>
+                        
+                        <!-- 주석: 마감임박 KPI 박스 (사용자 요청으로 숨김) -->
+                        <!--
+                        <div class="kpi-card kpi-green">
+                            <div class="kpi-label">마감임박</div>
+                            <div class="kpi-value" id="kpi-w-deadline">—</div>
+                            <div class="kpi-sub">7일 이내</div>
+                        </div>
+                        -->
+                    </div>
+                    <!-- 사업별 진행현황 카드 -->
+                    <div class="weekly-projects" id="weekly-projects">
+                        <div class="loading-cell">데이터를 불러오는 중...</div>
+                    </div>
+    
+                    <!-- 분석 섹션 -->
+                    <div class="analysis-box" id="analysis-box" style="display:none;">
+                        <div class="analysis-title">※ 분석</div>
+                        <ul class="analysis-list" id="analysis-list"></ul>
+                    </div>
+    
+                </div>
+
+                <!-- 회사 월간보고 탭 -->
+                <div id="tab-monthly" class="tab-content">
+
+                    <!-- KPI 박스 3개 -->
+                    <div class="kpi-grid kpi-grid-3">
+                        <div class="kpi-card">
+                            <div class="kpi-label">진행 사업</div>
+                            <div class="kpi-value" id="kpi-m-total">—</div>
+                            <div class="kpi-sub">이번달 기준</div>
+                        </div>
+                        <div class="kpi-card kpi-red">
+                            <div class="kpi-label">이슈 사업</div>
+                            <div class="kpi-value" id="kpi-m-issue">—</div>
+                            <div class="kpi-sub">이슈 발생</div>
+                        </div>
+                        <div class="kpi-card kpi-blue">
+                            <div class="kpi-label">이번달 미팅</div>
+                            <div class="kpi-value" id="kpi-m-meeting">—</div>
+                            <div class="kpi-sub">고객/협력사</div>
+                        </div>
+                    </div>
+
+                    <!-- 인력투입현황 -->
+                    <div class="monthly-section" id="monthly-workforce" style="display:none;">
+                        <div class="monthly-section-header">
+                            <span class="monthly-section-title">인력투입현황</span>
+                        </div>
+                        <div id="workforce-wrap"></div>
+                    </div>
+
+                    <!-- 이슈사항 테이블 -->
+                    <div class="monthly-section" id="monthly-issues" style="display:none;">
+                        <div class="monthly-section-header">
+                            <span class="monthly-section-title">주요 이슈사항</span>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>고객사</th>
+                                        <th>프로젝트명</th>
+                                        <th>기간</th>
+                                        <th>PM</th>
+                                        <th>이슈현황</th>
+                                        <th>해결현황</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="issues-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 고객/협력사 미팅 -->
+                    <div class="monthly-section" id="monthly-meetings" style="display:none;">
+                        <div class="monthly-section-header">
+                            <span class="monthly-section-title">고객/협력사 미팅</span>
+                        </div>
+                        <ul class="meeting-list" id="meeting-list"></ul>
+                    </div>
+
+                    <!-- 분석 -->
+                    <div class="analysis-box" id="monthly-analysis-box" style="display:none;">
+                        <div class="analysis-title">※ 분석</div>
+                        <ul class="analysis-list" id="monthly-analysis-list"></ul>
+                    </div>
+
+                </div>
+
+                <!-- 세종 월간분석 탭 -->
+                <div id="tab-sejong" class="tab-content">
+
+                    <!-- KPI 요약 테이블 -->
+                    <div class="monthly-section" id="sejong-kpi-section" style="display:none;">
+                        <div class="monthly-section-header">
+                            <span class="monthly-section-title">KPI 요약</span>
+                            <span class="sejong-period" id="sejong-period"></span>
+                        </div>
+                        <table class="kpi-table" id="sejong-kpi-table">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <!-- 사업별 월간 현황 카드 -->
+                    <div class="sejong-projects" id="sejong-projects"></div>
+
+                    <!-- 분석 -->
+                    <div class="analysis-box" id="sejong-analysis-box" style="display:none;">
+                        <div class="analysis-title">※ 분석</div>
+                        <ul class="analysis-list" id="sejong-analysis-list"></ul>
+                    </div>
+
+                </div>
+
+                <!-- Phase 5: 세종사업히스토리 탭 -->
+                <div id="tab-history" class="tab-content">
+
+                    <!-- v2.3: KPI 타일 5개 -->
+                    <div class="hist-kpi-row" id="hist-kpi-row" style="display:none;">
+                        <div class="hist-kpi rev"><div class="hist-kpi-stripe rev"></div><div class="hist-kpi-cap" id="histKpiRevCap">매출</div><div class="hist-kpi-val" id="histKpiRev">—</div></div>
+                        <div class="hist-kpi rev"><div class="hist-kpi-stripe rev"></div><div class="hist-kpi-cap">전년대비 매출</div><div class="hist-kpi-val" id="histKpiRevYoy">—</div><div class="hist-kpi-sub" id="histKpiRevYoySub"></div></div>
+                        <div class="hist-kpi margin"><div class="hist-kpi-stripe margin"></div><div class="hist-kpi-cap" id="histKpiGpCap">매출이익</div><div class="hist-kpi-val" id="histKpiGp">—</div></div>
+                        <div class="hist-kpi margin"><div class="hist-kpi-stripe margin"></div><div class="hist-kpi-cap">전년대비 매출이익</div><div class="hist-kpi-val" id="histKpiGpYoy">—</div><div class="hist-kpi-sub" id="histKpiGpYoySub"></div></div>
+                    </div>
+
+                    <!-- v2.3: 캐시카우 강조 배너 -->
+                    <div class="hist-cashcow" id="hist-cashcow" style="display:none;">
+                        <div class="hist-cashcow-icon">🐄</div>
+                        <div>
+                            <div class="hist-cashcow-tag">CASH COW</div>
+                            <div class="hist-cashcow-num" id="histCashcowNum">—</div>
+                            <div class="hist-cashcow-cap" id="histCashcowCap"></div>
+                            <div class="hist-cashcow-text">안정적인 운영매출이 꾸준히 늘며, 세종개발본부의 핵심 수익 기반이 더 단단해지고 있습니다.</div>
+                        </div>
+                    </div>
+
+                    <!-- 그래프 영역 (기본 숨김, 버튼 클릭 시 슬라이드 오픈) -->
+                    <div class="chart-area" id="chart-area">
+                        <div class="chart-wrap">
+                            <canvas id="history-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 연도별 합계 요약 테이블 (항상 표시) -->
+                    <div class="monthly-section" id="history-summary-section" style="display:none;">
+                        <div class="monthly-section-header">
+                            <span class="monthly-section-title">연도별 사업 현황 요약</span>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table summary-7col">
+                                <colgroup>
+                                    <col style="width:8%">
+                                    <col style="width:13%">
+                                    <col style="width:13%">
+                                    <col style="width:13%">
+                                    <col style="width:9%">
+                                    <col style="width:22%">
+                                    <col style="width:22%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>연도</th>
+                                        <th>매출액</th>
+                                        <th>매출원가</th>
+                                        <th>매출이익</th>
+                                        <th>매출이익률</th>
+                                        <th>전년대비 매출</th>
+                                        <th>전년대비 매출이익</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="summary-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 연도 선택 탭 버튼들 -->
+                    <div class="year-tabs" id="year-tabs"></div>
+
+                    <!-- 연도별 상세 사업 목록 -->
+                    <div id="history-detail">
+                        <div class="loading-cell">데이터를 불러오는 중...</div>
+                    </div>
+
+                </div>
+
+                <!-- Phase 6: 조직도 탭 -->
+                <div id="tab-org" class="tab-content">
+
+                    <!-- 탭 내부 버튼 바: 뷰 토글 + 새로고침 (타이틀은 전역 topbar) -->
+                    <div class="org-tab-header">
+                        <!-- 사업별 / 인물사전 뷰 전환 토글 -->
+                        <div class="view-toggle">
+                            <button class="view-btn active" id="btn-view-org"
+                                    onclick="switchOrgView('org', this)">사업별</button>
+                            <button class="view-btn" id="btn-view-photo"
+                                    onclick="switchOrgView('photo', this)">인물사전</button>
+                        </div>
+                        <button class="btn-refresh" id="btn-org-refresh" onclick="loadOrg(1)">
+                            <i class="ti ti-refresh"></i> 새로고침
+                        </button>
+                    </div>
+
+                    <!-- KPI 4개 -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card kpi-blue">
+                            <div class="kpi-label">총 인원</div>
+                            <div class="kpi-value" id="org-kpi-total">—</div>
+                            <div class="kpi-sub">외주 포함</div>
+                        </div>
+                        <div class="kpi-card kpi-green">
+                            <div class="kpi-label">정직원</div>
+                            <div class="kpi-value" id="org-kpi-staff">—</div>
+                            <div class="kpi-sub">정규직 기준</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">외주 인력</div>
+                            <div class="kpi-value" id="org-kpi-out">—</div>
+                            <div class="kpi-sub">개발/콘텐츠/민원</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">수행 사업</div>
+                            <div class="kpi-value" id="org-kpi-projects">—</div>
+                            <div class="kpi-sub">운영 중</div>
+                        </div>
+                    </div>
+
+                    <!-- 뷰1: 사업별 (기본 표시) -->
+                    <div id="org-view-org" class="org-view-panel">
+                        <div id="org-grid" class="org-grid">
+                            <div class="loading-cell">데이터를 불러오는 중...</div>
+                        </div>
+                    </div>
+
+                    <!-- 뷰2: 인물사전 (기본 숨김) -->
+                    <div id="org-view-photo" class="org-view-panel" style="display:none">
+                        <div id="photo-staff-section" class="photo-section"></div>
+                        <div id="photo-out-section" class="photo-section"></div>
+                    </div>
+
+                </div>
+
+                <!-- Phase 7: 영업보고 탭 -->
+                <div id="tab-sales" class="tab-content">
+
+                    <!-- 전체 주차 카드 목록 (펼침 상태 고정) -->
+                    <div id="sales-list" class="sales-list">
+                        <div class="loading-cell">데이터를 불러오는 중...</div>
+                    </div>
+
+                </div>
+
+                <!-- Phase 8: RISK 알림 탭 -->
+                <div id="tab-risk" class="tab-content">
+
+                    <!-- 전체 주차 카드 목록 (펼침 상태 고정) -->
+                    <div id="risk-list" class="risk-list">
+                        <div class="loading-cell">데이터를 불러오는 중...</div>
+                    </div>
+
+                </div>
+
+                <!-- Phase 9: 세미나 알림 탭 -->
+                <div id="tab-seminar" class="tab-content">
+
+                    <!-- 전체 주차 카드 목록 (펼침 상태 고정) -->
+                    <div id="seminar-list" class="seminar-list">
+                        <div class="loading-cell">데이터를 불러오는 중...</div>
+                    </div>
+
+                </div>
+
+                <!-- Phase 11: 손익현황 탭 -->
+                <div id="tab-profitloss" class="tab-content">
+
+                    <!-- 3.0 비교 기준 탭 토글 -->
+                    <div class="pl-mode-bar">
+                        <div class="pl-mode-tabs" id="pl-mode-tabs">
+                            <span class="pl-mode-tab active" data-mode="org">수행조직대비</span>
+                        </div>
+                        <div class="pl-mode-right">
+                            <button class="pl-mode-tab pl-mode-secret" data-mode="all" id="pl-btn-all">⇄</button>
+                            <button class="pl-colorful-toggle" id="pl-colorful-toggle">☀️ 다크모드 OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- 3.1 KPI 타일 6개 -->
+                    <div class="pl-kpi-row" id="pl-kpi-row" style="display:none;"></div>
+
+                    <!-- 3.2 연도별 수행인력 효율배수 카드 -->
+                    <div class="monthly-section" id="pl-cards-section" style="display:none;">
+                        <div class="monthly-section-header">
+                            <span class="monthly-section-title" id="pl-cards-title">연도별 수행인력 효율배수</span>
+                            <span class="pl-section-note" id="pl-cards-note">인력 비중 대비 매출이익 비중 우위 배수</span>
+                        </div>
+                        <div class="pl-year-cards" id="pl-year-cards"></div>
+                        <div class="pl-footnote" id="pl-cards-foot"></div>
+                    </div>
+
+                    <!-- 3.3 연도별 미니차트 4개 -->
+                    <div class="monthly-section" id="pl-charts-section" style="display:none;">
+                        <div class="monthly-section-header">
+                            <span class="monthly-section-title" id="pl-charts-title">연도별 수행조직대비 매출/매출원가/매출이익</span>
+                            <span class="pl-section-note" id="pl-charts-note">2021~2026 · 수행조직 vs 세종</span>
+                        </div>
+                        <div class="pl-mini-grid">
+                            <div class="pl-mini-box"><div class="pl-mini-title">인력</div><div id="pl-chart-labor"></div></div>
+                            <div class="pl-mini-box"><div class="pl-mini-title">매출</div><div id="pl-chart-revenue"></div></div>
+                            <div class="pl-mini-box"><div class="pl-mini-title">매출원가</div><div id="pl-chart-cost"></div></div>
+                            <div class="pl-mini-box"><div class="pl-mini-title">매출이익</div><div id="pl-chart-profit"></div></div>
+                        </div>
+                        <div class="pl-legend" id="pl-legend"></div>
+                    </div>
+
+                    <!-- 3.4 하이라이트 배너 -->
+                    <div class="pl-highlight" id="pl-highlight" style="display:none;"></div>
+
+                    <!-- 3.5 연도별 사업 현황 요약 표 -->
+                    <div class="monthly-section" id="pl-table-section" style="display:none;">
+                        <div class="monthly-section-header">
+                            <span class="monthly-section-title">연도별 사업 현황 요약</span>
+                            <span class="pl-section-note">2021~2026 · 단위 명/억원</span>
+                        </div>
+                        <div class="table-container">
+                            <table class="pl-table">
+                                <thead>
+                                    <tr id="pl-table-head">
+                                        <th>연도</th>
+                                        <th>구분</th>
+                                        <th>인력</th>
+                                        <th>매출</th>
+                                        <th>매출원가</th>
+                                        <th>매출이익</th>
+                                        <th>매출이익률</th>
+                                        <th class="pl-grp">수행인력대비 매출</th>
+                                        <th>수행인력대비 매출원가</th>
+                                        <th>수행인력대비 매출이익</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pl-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 자동화 실행 탭 -->
+                <div id="tab-automation" class="tab-content">
+                    <div class="auto-grid" id="auto-grid"></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- 자동화 실행: 토스트 -->
+    <div class="auto-toast" id="auto-toast"></div>
+
+    <!-- 자동화 실행: 폴백 모달 -->
+    <div class="auto-fallback-overlay" id="auto-fallback-overlay" onclick="closeFallback()"></div>
+    <div class="auto-fallback" id="auto-fallback">
+        <div class="auto-fallback-head">
+            <span>트리거 문구</span>
+            <button class="auto-fallback-close" onclick="closeFallback()">✕</button>
+        </div>
+        <div class="auto-fallback-body">
+            <code id="auto-fallback-text"></code>
+            <button class="auto-fallback-copy" id="auto-fallback-copy">복사</button>
+        </div>
+        <div class="auto-fallback-foot">복사 후 claude.ai 새 탭에서 붙여넣기 해주세요</div>
+    </div>
+
+    <!-- 툴팁 컨테이너 (body 최상단 레벨 — overflow 영향 없음) -->
+    <div id="tooltip-box" class="tooltip-box"></div>
+
+    <!-- Phase 6: 조직도 상세 패널 오버레이 + 슬라이드 패널 (body 레벨) -->
+    <div class="org-overlay" id="org-overlay" onclick="closeDetail()"></div>
+    <div class="org-detail-panel" id="org-detail-panel">
+        <div class="dp-head">
+            <span class="dp-head-title">인력 상세</span>
+            <button class="dp-close" onclick="closeDetail()">✕</button>
+        </div>
+        <div class="dp-body" id="org-detail-body"></div>
+    </div>
+    
+    <!-- 모바일 사이드바 오버레이 -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- Chart.js: Phase 5 그래프용 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/main.js?v=33"></script>
+</body>
+</html>

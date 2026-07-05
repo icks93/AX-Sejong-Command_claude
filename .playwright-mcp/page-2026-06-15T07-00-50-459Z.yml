@@ -1,0 +1,245 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e7] [cursor=pointer]: 
+        - generic [ref=e9] [cursor=pointer]: 
+        - generic [ref=e11] [cursor=pointer]: 
+        - generic [ref=e13] [cursor=pointer]: 
+        - generic [ref=e15] [cursor=pointer]: 
+        - generic [ref=e17] [cursor=pointer]: 
+        - generic [ref=e19] [cursor=pointer]: 
+        - generic [ref=e21] [cursor=pointer]: 
+        - generic [ref=e23] [cursor=pointer]: 
+        - generic [ref=e25] [cursor=pointer]: 
+        - generic [ref=e27]: 
+      - generic [ref=e30] [cursor=pointer]: 
+      - generic [ref=e33]: 익스
+    - main [ref=e34]:
+      - generic [ref=e35]:
+        - text: 
+        - generic [ref=e36]:
+          - generic [ref=e37]: 세종사업히스토리
+          - generic [ref=e38]: 2026년 기준
+        - generic [ref=e39]:
+          - button "📊 그래프 보기" [active] [ref=e117] [cursor=pointer]
+          - button " 새로고침" [ref=e125] [cursor=pointer]:
+            - generic [ref=e126]: 
+            - text: 새로고침
+      - generic [ref=e42]:
+        - generic [ref=e119]:
+          - generic [ref=e127]:
+            - generic [ref=e129]: 연도별 매출 합계 요약
+            - table [ref=e131]:
+              - rowgroup [ref=e143]:
+                - row "연도 사업수 매출액 매출원가 매출이익 매출이익률 공통비 영업이익 영업이익률 전년대비실적" [ref=e144]:
+                  - columnheader "연도" [ref=e145]
+                  - columnheader "사업수" [ref=e146]
+                  - columnheader "매출액" [ref=e147]
+                  - columnheader "매출원가" [ref=e148]
+                  - columnheader "매출이익" [ref=e149]
+                  - columnheader "매출이익률" [ref=e150]
+                  - columnheader "공통비" [ref=e151]
+                  - columnheader "영업이익" [ref=e152]
+                  - columnheader "영업이익률" [ref=e153]
+                  - columnheader "전년대비실적" [ref=e154]
+              - rowgroup [ref=e155]:
+                - row "2026년 6건 50.6억 42.4억 8.2억 16.2% 7.9억 2533만 0.5% +3.6억" [ref=e156]:
+                  - cell "2026년" [ref=e157]
+                  - cell "6건" [ref=e158]
+                  - cell "50.6억" [ref=e159]
+                  - cell "42.4억" [ref=e160]
+                  - cell "8.2억" [ref=e161]
+                  - cell "16.2%" [ref=e162]
+                  - cell "7.9억" [ref=e163]
+                  - cell "2533만" [ref=e164]
+                  - cell "0.5%" [ref=e165]
+                  - cell "+3.6억" [ref=e166]
+                - row "2025년 8건 47.0억 39.3억 7.7억 16.3% 8.5억 -8001만 -1.7% -3651만" [ref=e167]:
+                  - cell "2025년" [ref=e168]
+                  - cell "8건" [ref=e169]
+                  - cell "47.0억" [ref=e170]
+                  - cell "39.3억" [ref=e171]
+                  - cell "7.7억" [ref=e172]
+                  - cell "16.3%" [ref=e173]
+                  - cell "8.5억" [ref=e174]
+                  - cell "-8001만" [ref=e175]
+                  - cell "-1.7%" [ref=e176]
+                  - cell "-3651만" [ref=e177]
+                - row "2024년 7건 47.4억 37.1억 10.3억 21.8% 7.8억 2.5억 5.3% -10.9억" [ref=e178]:
+                  - cell "2024년" [ref=e179]
+                  - cell "7건" [ref=e180]
+                  - cell "47.4억" [ref=e181]
+                  - cell "37.1억" [ref=e182]
+                  - cell "10.3억" [ref=e183]
+                  - cell "21.8%" [ref=e184]
+                  - cell "7.8억" [ref=e185]
+                  - cell "2.5억" [ref=e186]
+                  - cell "5.3%" [ref=e187]
+                  - cell "-10.9억" [ref=e188]
+                - row "2023년 10건 58.3억 49.9억 8.4억 14.4% 9.5억 -1.1억 -1.9% +15.3억" [ref=e189]:
+                  - cell "2023년" [ref=e190]
+                  - cell "10건" [ref=e191]
+                  - cell "58.3억" [ref=e192]
+                  - cell "49.9억" [ref=e193]
+                  - cell "8.4억" [ref=e194]
+                  - cell "14.4%" [ref=e195]
+                  - cell "9.5억" [ref=e196]
+                  - cell "-1.1억" [ref=e197]
+                  - cell "-1.9%" [ref=e198]
+                  - cell "+15.3억" [ref=e199]
+                - row "2022년 6건 43.0억 32.5억 10.5억 24.4% 6.8억 3.6억 8.5% +15.8억" [ref=e200]:
+                  - cell "2022년" [ref=e201]
+                  - cell "6건" [ref=e202]
+                  - cell "43.0억" [ref=e203]
+                  - cell "32.5억" [ref=e204]
+                  - cell "10.5억" [ref=e205]
+                  - cell "24.4%" [ref=e206]
+                  - cell "6.8억" [ref=e207]
+                  - cell "3.6억" [ref=e208]
+                  - cell "8.5%" [ref=e209]
+                  - cell "+15.8억" [ref=e210]
+                - row "2021년 6건 27.2억 21.7억 5.5억 20.0% 4.3억 1.2억 4.4% +16.1억" [ref=e211]:
+                  - cell "2021년" [ref=e212]
+                  - cell "6건" [ref=e213]
+                  - cell "27.2억" [ref=e214]
+                  - cell "21.7억" [ref=e215]
+                  - cell "5.5억" [ref=e216]
+                  - cell "20.0%" [ref=e217]
+                  - cell "4.3억" [ref=e218]
+                  - cell "1.2억" [ref=e219]
+                  - cell "4.4%" [ref=e220]
+                  - cell "+16.1억" [ref=e221]
+                - row "2020년 4건 11.1억 2.1억 9919만 8.9% 4868만 5051만 4.5% -" [ref=e222]:
+                  - cell "2020년" [ref=e223]
+                  - cell "4건" [ref=e224]
+                  - cell "11.1억" [ref=e225]
+                  - cell "2.1억" [ref=e226]
+                  - cell "9919만" [ref=e227]
+                  - cell "8.9%" [ref=e228]
+                  - cell "4868만" [ref=e229]
+                  - cell "5051만" [ref=e230]
+                  - cell "4.5%" [ref=e231]
+                  - cell "-" [ref=e232]
+          - generic [ref=e233]:
+            - button "전체" [ref=e234] [cursor=pointer]
+            - button "2026년" [ref=e235] [cursor=pointer]
+            - button "2025년" [ref=e236] [cursor=pointer]
+            - button "2024년" [ref=e237] [cursor=pointer]
+            - button "2023년" [ref=e238] [cursor=pointer]
+            - button "2022년" [ref=e239] [cursor=pointer]
+            - button "2021년" [ref=e240] [cursor=pointer]
+            - button "2020년" [ref=e241] [cursor=pointer]
+          - generic [ref=e242]:
+            - generic [ref=e243]: 2026년 사업 현황
+            - table [ref=e245]:
+              - rowgroup [ref=e259]:
+                - row "구분 사업명 고객사 기간 매출액 매출원가 매출이익 매출이익률 공통비 영업이익 영업이익률 계획대비실적" [ref=e260]:
+                  - columnheader "구분" [ref=e261]
+                  - columnheader "사업명" [ref=e262]
+                  - columnheader "고객사" [ref=e263]
+                  - columnheader "기간" [ref=e264]
+                  - columnheader "매출액" [ref=e265]
+                  - columnheader "매출원가" [ref=e266]
+                  - columnheader "매출이익" [ref=e267]
+                  - columnheader "매출이익률" [ref=e268]
+                  - columnheader "공통비" [ref=e269]
+                  - columnheader "영업이익" [ref=e270]
+                  - columnheader "영업이익률" [ref=e271]
+                  - columnheader "계획대비실적" [ref=e272]
+              - rowgroup [ref=e273]:
+                - row "운영 2026~2027년 공직자통합메일 운영 및 유지관리(2026) 문화체육관광부 정책포털과 1/1~12/31(12M) 3.2억 2.8억 4145만 13.0% 4496만 -350만 -1.1% -483만" [ref=e274]:
+                  - cell "운영" [ref=e275]
+                  - cell "2026~2027년 공직자통합메일 운영 및 유지관리(2026)" [ref=e276]
+                  - cell "문화체육관광부 정책포털과" [ref=e277]
+                  - cell "1/1~12/31(12M)" [ref=e278]
+                  - cell "3.2억" [ref=e279]
+                  - cell "2.8억" [ref=e280]
+                  - cell "4145만" [ref=e281]
+                  - cell "13.0%" [ref=e282]
+                  - cell "4496만" [ref=e283]
+                  - cell "-350만" [ref=e284]
+                  - cell "-1.1%" [ref=e285]
+                  - cell "-483만" [ref=e286]
+                - row "운영 2026~2027년 해외홍보시스템 유지운영(2026) 문화체육관광부 해외홍보기획과 1/1~12/31(12M) 7.1억 6.5억 6623만 9.3% 1.0억 -3867만 -5.4% -163만" [ref=e287]:
+                  - cell "운영" [ref=e288]
+                  - cell "2026~2027년 해외홍보시스템 유지운영(2026)" [ref=e289]
+                  - cell "문화체육관광부 해외홍보기획과" [ref=e290]
+                  - cell "1/1~12/31(12M)" [ref=e291]
+                  - cell "7.1억" [ref=e292]
+                  - cell "6.5억" [ref=e293]
+                  - cell "6623만" [ref=e294]
+                  - cell "9.3%" [ref=e295]
+                  - cell "1.0억" [ref=e296]
+                  - cell "-3867만" [ref=e297]
+                  - cell "-5.4%" [ref=e298]
+                  - cell "-163만" [ref=e299]
+                - row "운영 2026년 안전신문고 시스템 유지관리 사업 행정안전부 안전개선과 1/1~12/31(12M) 15.2억 11.7억 3.5억 23.0% 2.8억 7442만 4.9% +749만" [ref=e300]:
+                  - cell "운영" [ref=e301]
+                  - cell "2026년 안전신문고 시스템 유지관리 사업" [ref=e302]
+                  - cell "행정안전부 안전개선과" [ref=e303]
+                  - cell "1/1~12/31(12M)" [ref=e304]
+                  - cell "15.2억" [ref=e305]
+                  - cell "11.7억" [ref=e306]
+                  - cell "3.5억" [ref=e307]
+                  - cell "23.0%" [ref=e308]
+                  - cell "2.8억" [ref=e309]
+                  - cell "7442만" [ref=e310]
+                  - cell "4.9%" [ref=e311]
+                  - cell "+749만" [ref=e312]
+                - row "과제 (과제)AI기반 안전신고 정보의 과학적 분析 서비스 기술개발(3차) 행정안전부 1/1~12/31(12M) 8.1억 5.8억 2.2억 27.8% 1.3억 9042만 11.2% -107만" [ref=e313]:
+                  - cell "과제" [ref=e314]
+                  - cell "(과제)AI기반 안전신고 정보의 과학적 분析 서비스 기술개발(3차)" [ref=e315]
+                  - cell "행정안전부" [ref=e316]
+                  - cell "1/1~12/31(12M)" [ref=e317]
+                  - cell "8.1억" [ref=e318]
+                  - cell "5.8억" [ref=e319]
+                  - cell "2.2억" [ref=e320]
+                  - cell "27.8%" [ref=e321]
+                  - cell "1.3억" [ref=e322]
+                  - cell "9042만" [ref=e323]
+                  - cell "11.2%" [ref=e324]
+                  - cell "-107만" [ref=e325]
+                - row "운영 2026년 재외한국문화원 행정지원시스템 운영 및 유지보수 사업(2026) 문화체육관광부 국제문화정책과 1/1~12/31(12M) 16.9억 15.6억 1.4억 8.1% 2.3억 -9744만 -5.8% +226만" [ref=e326]:
+                  - cell "운영" [ref=e327]
+                  - cell "2026년 재외한국문화원 행정지원시스템 운영 및 유지보수 사업(2026)" [ref=e328]
+                  - cell "문화체육관광부 국제문화정책과" [ref=e329]
+                  - cell "1/1~12/31(12M)" [ref=e330]
+                  - cell "16.9억" [ref=e331]
+                  - cell "15.6억" [ref=e332]
+                  - cell "1.4억" [ref=e333]
+                  - cell "8.1%" [ref=e334]
+                  - cell "2.3억" [ref=e335]
+                  - cell "-9744만" [ref=e336]
+                  - cell "-5.8%" [ref=e337]
+                  - cell "+226만" [ref=e338]
+                - row "개발 안전신문고-어린이안전자가진단 페어엑스 4/1~5/15(1.5M) 500만 391만 109만 21.8% 98만 11만 2.2% 0" [ref=e339]:
+                  - cell "개발" [ref=e340]
+                  - cell "안전신문고-어린이안전자가진단" [ref=e341]
+                  - cell "페어엑스" [ref=e342]
+                  - cell "4/1~5/15(1.5M)" [ref=e343]
+                  - cell "500만" [ref=e344]
+                  - cell "391만" [ref=e345]
+                  - cell "109만" [ref=e346]
+                  - cell "21.8%" [ref=e347]
+                  - cell "98만" [ref=e348]
+                  - cell "11만" [ref=e349]
+                  - cell "2.2%" [ref=e350]
+                  - cell "0" [ref=e351]
+                - row "합계 (6건) 50.6억 42.4억 8.2억 16.2% 7.9억 2533만 0.5% +222만" [ref=e352]:
+                  - cell [ref=e353]
+                  - cell "합계 (6건)" [ref=e354]
+                  - cell [ref=e355]
+                  - cell [ref=e356]
+                  - cell "50.6억" [ref=e357]
+                  - cell "42.4억" [ref=e358]
+                  - cell "8.2억" [ref=e359]
+                  - cell "16.2%" [ref=e360]
+                  - cell "7.9억" [ref=e361]
+                  - cell "2533만" [ref=e362]
+                  - cell "0.5%" [ref=e363]
+                  - cell "+222만" [ref=e364]
+        - text: 
+  - generic [ref=e113]:
+    - generic [ref=e114]: 인력 상세
+    - button "✕" [ref=e115] [cursor=pointer]
