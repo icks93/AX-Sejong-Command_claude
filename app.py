@@ -1249,7 +1249,7 @@ def get_history_data(force_refresh: bool = False) -> dict:
 
 @app.get("/")
 def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="index.html", context={})
 
 
 @app.get("/api/projects")
