@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "PowerShell(cd \"C:\\\\Users\\\\icks\\\\ICKS93\\\\31.세종업무자동화\\\\AX-Sejong-Command_claude\"; Start-Process -FilePath \"python\" -ArgumentList \"app.py\" -WindowStyle Hidden; Start-Sleep -Seconds 4; try { $r = Invoke-WebRequest -Uri \"http://localhost:8001/\" -TimeoutSec 5 -UseBasicParsing; Write-Host \"Server OK: $\\($r.StatusCode\\)\" } catch { Write-Host \"Server not ready: $_\" })",
-      "PowerShell(Get-Process *)"
+      "PowerShell(Get-Process *)",
+      "Bash(curl -s -o pl_download.docx -w \"profit-loss download HTTP %{http_code}\\\\n\" http://localhost:8001/api/profit-loss/download)",
+      "Bash(curl -s -o hist_download.docx -w \"history download HTTP %{http_code}\\\\n\" http://localhost:8001/api/history/download)",
+      "Bash(python -c ' *)",
+      "Bash(python *)",
+      "Bash(powershell -Command \"Stop-Process -Id 74468 -Force\")",
+      "Bash(netstat -ano)",
+      "Bash(powershell -Command \"Stop-Process -Id 69076 -Force\")",
+      "Bash(python app.py)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8001/)",
+      "Bash(curl -s -o pl_download.docx -w \"profit-loss: %{http_code}\\\\n\" http://localhost:8001/api/profit-loss/download)",
+      "Bash(curl -s -o hist_download.docx -w \"history: %{http_code}\\\\n\" http://localhost:8001/api/history/download)",
+      "Bash(curl -s -o dash_download.docx -w \"dashboard: %{http_code}\\\\n\" http://localhost:8001/api/dashboard/download)",
+      "Bash(curl -s -o proj_download.docx -w \"projects: %{http_code}\\\\n\" http://localhost:8001/api/projects/download)",
+      "Bash(curl -s -o weekly_download.docx -w \"weekly: %{http_code}\\\\n\" http://localhost:8001/api/weekly/download)"
     ]
   },
   "enableAllProjectMcpServers": true,
